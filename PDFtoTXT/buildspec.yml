@@ -1,15 +1,19 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
       python: 3.10
+
   build:
     commands:
-     
-     - aws cloudformation package --template-file PDFtoTXT/pdftotxt.yaml --s3-bucket project3-artifacts-01052026 --output-template-file lambdaoutput.yaml
+      - echo "=== Showing template being packaged ==="
+      - sed -n '1,160p' PDFtoTXT/pdftotxt.yaml
+      - aws cloudformation package \
+          --template-file PDFtoTXT/pdftotxt.yaml \
+          --s3-bucket project3-artifacts-01052026 \
+          --output-template-file lambdaoutput.yaml
 
 artifacts:
-  type: zip
   files:
-    - pdftotxt.yaml
     - lambdaoutput.yaml
