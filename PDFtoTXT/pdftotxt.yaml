@@ -17,9 +17,20 @@ Resources:
           TARGET_BUCKET: project3-artifacts-01052026
       Layers:
         - arn:aws:lambda:us-east-2:426811253553:layer:pypdf:3
-      # Let SAM auto-create the Lambda execution role
+      # SAM will auto-create the Lambda execution role
       Policies:
-        # Full access to your bucket (can restrict later)
-        - S3Crud:
-            BucketName: project3-artifacts-01052026
+        - PolicyName: LambdaS3Access
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - arn:aws:s3:::project3-artifacts-01052026
+                  - arn:aws:s3:::project3-artifacts-01052026/*
+
 
