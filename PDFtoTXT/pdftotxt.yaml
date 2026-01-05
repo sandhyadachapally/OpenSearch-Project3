@@ -1,3 +1,4 @@
+
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: PDF to Text Lambda deployed via CodePipeline
@@ -18,19 +19,16 @@ Resources:
       Layers:
         - arn:aws:lambda:us-east-2:426811253553:layer:pypdf:3
       # SAM will auto-create the Lambda execution role
-          Policies:
+      Policies:
         - PolicyName: LambdaS3Access
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              # Bucket-level permissions (ListBucket must be on the bucket ARN only)
               - Effect: Allow
                 Action:
                   - s3:ListBucket
                 Resource:
                   - arn:aws:s3:::project3-artifacts-01052026
-
-              # Object-level permissions (Get/Put/Delete must be on bucket/*)
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -38,6 +36,4 @@ Resources:
                   - s3:DeleteObject
                 Resource:
                   - arn:aws:s3:::project3-artifacts-01052026/*
-
-
 
