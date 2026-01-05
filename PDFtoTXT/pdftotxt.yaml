@@ -1,21 +1,25 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
-Description: PDF to Text Lambda
+Transform: AWS::Serverless-2016-10-31
+Description: PDF to Text Lambda deployed via CodePipeline
 
 Resources:
   pdftotxt:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: lambda_function.lambda_handler
       Runtime: python3.10
       CodeUri: .
       MemorySize: 512
       Timeout: 900
+      Description: PDF to Text Lambda
       Environment:
         Variables:
           TARGET_BUCKET: project3-artifacts-01052026
       Layers:
         - arn:aws:lambda:us-east-2:426811253553:layer:pypdf:3
+      # Let SAM auto-create the Lambda execution role
       Policies:
-        - S3FullAccess
+        # Full access to your bucket (can restrict later)
+        - S3Crud:
+            BucketName: project3-artifacts-01052026
 
