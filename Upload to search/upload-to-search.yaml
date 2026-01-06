@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Upload-to-Search Lambda deployed via CodePipeline
+Description: Upload to Search Lambda deployed via CodePipeline
 
 Resources:
   uploadtosearch:
@@ -8,17 +8,14 @@ Resources:
     Properties:
       Handler: lambda_function.lambda_handler
       Runtime: python3.10
-      CodeUri: .
+      CodeUri: Upload to search/
       MemorySize: 512
       Timeout: 900
       Description: Upload to Search Lambda
       Environment:
         Variables:
           TARGET_BUCKET: project3-artifacts-01052026
-
-      # Let SAM create/manage the execution role (recommended)
       Policies:
         - AWSLambdaBasicExecutionRole
         - S3CrudPolicy:
             BucketName: project3-artifacts-01052026
-
